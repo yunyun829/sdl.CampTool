@@ -18,9 +18,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import static android.content.Context.SENSOR_SERVICE;
 
 public class FirstFragment extends Fragment implements SensorEventListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private SensorManager sensorManager;
     private TextView textView;
     private CompassView compassView;
+    private Sensor ASensor,GSensor;
+
 
     private  float[] G = new float[3];
     private  float[] A = new float[3];
@@ -39,9 +42,10 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sensorManager = (SensorManager)getActivity().getSystemService(SENSOR_SERVICE);
-        textView = getView().findViewById(R.id.textview_second);
-        compassView = getView().findViewById(R.id.compass_view);
-        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        textView = (TextView)view.findViewById(R.id.textview_first);
+        compassView = view.findViewById(R.id.compass_view);
+        ASensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        GSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
@@ -54,22 +58,29 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this,ASensor,SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this,GSensor,SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType()==Sensor.TYPE_MAGNETIC_FIELD){
-            G = event.values.clone();//磁気
+            G = calcWaitedAve(event.values.clone(),G);
         }
         if (event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
-            A = event.values.clone();
+            A = calcWaitedAve(event.values.clone(),A);
         }
-        float[] R = new float[16];
+        float[] R = new float[9];
         float[] I = new float[16];
 
-        SensorManager.getRotationMatrix(R,I,A,G);
+        SensorManager.getRotationMatrix(R,null,A,G);
 
-        float[] O = new float[3];
+        float[] O = new float[6];
 
         SensorManager.getOrientation(R,O);
-        Log.d("FF", String.valueOf(O));
+
         compassView.setDirection(O[0]);
         textView.setText("direct:"+O[0]);
     }
@@ -77,6 +88,21 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    private float[] calcWaitedAve(float[] cur,float[] prev){
+        float wait = 0.85f;
+
+        for (int i = 1; i < prev.length; i++){
+            cur[i] = prev[i]*wait+cur[i]*(1-wait);
+        }
+        return cur;
     }
 
 
