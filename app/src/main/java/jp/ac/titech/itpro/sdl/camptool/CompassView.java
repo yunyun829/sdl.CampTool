@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class CompassView extends View {
@@ -15,7 +16,7 @@ public class CompassView extends View {
     private Bitmap bmp;
     double direction = 0;
     double degree = 0;
-    private Rect imagesize,drawsize;
+    private Rect imagesize;
 
     public CompassView(Context context) {
 
@@ -64,7 +65,11 @@ public class CompassView extends View {
             canvas.rotate(15);
         }
         canvas.rotate((float) degree);
-        canvas.drawBitmap(bmp,imagesize,new Rect(-r,-r,r,r),paint);
+        if(bmp != null) {
+            canvas.drawBitmap(bmp, imagesize, new Rect(-r, -r, r, r), paint);
+        }else {
+            Log.d("","cannot draw image!");
+        }
     }
 
     public void setDirection(double theta){
