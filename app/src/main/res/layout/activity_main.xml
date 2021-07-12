@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back_ground__layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A3F875"
     tools:context=".MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,14 +21,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <include layout="@layout/content_main" />
+        <include
+            layout="@layout/content_main"
+            android:background="#020202" />
 
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@android:color/holo_blue_bright"
             app:popupTheme="@style/Theme.CampTool.PopupOverlay" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -51,7 +55,8 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:layout_marginEnd="@dimen/fab_margin"
                 android:layout_marginBottom="@dimen/fab_margin"
-                app:srcCompat="@android:drawable/ic_dialog_email" />
+                app:backgroundTint="#F3F3F3"
+                app:srcCompat="@android:drawable/star_big_on" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,13 +68,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="compass" />
+                    android:background="#ff00ddff"
+                    android:text="compass"
+                    app:rippleColor="@color/white" />
 
                 <Button
                     android:id="@+id/toFragment2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#ff00ddff"
                     android:text="slope" />
 
                 <Button
@@ -77,6 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#ff00ddff"
+                    android:backgroundTint="#ff00ddff"
                     android:text="map" />
 
             </LinearLayout>

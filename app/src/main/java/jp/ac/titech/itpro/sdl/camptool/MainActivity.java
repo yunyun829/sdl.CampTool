@@ -3,6 +3,7 @@ package jp.ac.titech.itpro.sdl.camptool;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import android.hardware.camera2.CameraManager;
@@ -45,7 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CameraDevice.StateCallback sc;
     private int tmpFragID = 1;
     private NavController navController;
+    private RelativeLayout backGround;
     String TAG = "MainActivity";
+    private boolean themeColorRight = true;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        backGround = findViewById(R.id.back_ground__layout);
         FloatingActionButton fab = findViewById(R.id.fab);
         Button toFragment1 = findViewById(R.id.toFragment1);
         Button toFragment2 = findViewById(R.id.toFragment2);
@@ -96,6 +101,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            if (themeColorRight){
+                item.setTitle("right theme");
+                backGround.setBackgroundColor(Color.parseColor("#15202B"));
+                themeColorRight = false;
+            }else {
+                item.setTitle("dark theme");
+                backGround.setBackgroundColor(Color.parseColor("#A3F875"));
+                themeColorRight = true;
+            }
             return true;
         }
 

@@ -73,7 +73,7 @@ public class CompassView extends View {
     }
 
     public void setDirection(double theta){
-        direction = theta - Math.PI / 2;
+        direction = -theta ;
         degree = Math.toDegrees(direction);
         invalidate();
     }

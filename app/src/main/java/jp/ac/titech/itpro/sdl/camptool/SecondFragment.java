@@ -24,6 +24,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 public class SecondFragment extends Fragment implements SensorEventListener {
     private SensorManager sensorManager;
     private TextView textView;
+    private SlopeView slopeView;
     private Sensor ASensor,GSensor;
 
     private float[] rotation = new float[9];
@@ -46,6 +47,7 @@ public class SecondFragment extends Fragment implements SensorEventListener {
         ASensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         GSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         textView = getView().findViewById(R.id.textview_second);
+        slopeView = getView().findViewById(R.id.slope_view);
 
         view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +85,13 @@ public class SecondFragment extends Fragment implements SensorEventListener {
         if (magnetic != null && gravity != null){
             sensorManager.getRotationMatrix(rotation,null,gravity,magnetic);
             sensorManager.getOrientation(rotation,attitude);
-            textView.setText("pitch:"+Math.toDegrees(attitude[1])+", roll:"+Math.toDegrees(attitude[2]));
+
+            double theta = Math.toDegrees(Math.atan2(Math.toDegrees(attitude[2]),Math.toDegrees(attitude[1])));
+            textView.setText("theta:"+theta);
+            slopeView.setDegree(theta);
+
         }
+
     }
 
     @Override

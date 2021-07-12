@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:alpha="1"
+    android:background="#00000000"
     tools:context=".FirstFragment">
 
     <TextView
         android:id="@+id/textview_first"
-        android:layout_width="128dp"
-        android:layout_height="55dp"
+        android:layout_width="125dp"
+        android:layout_height="17dp"
         android:text="@string/hello_first_fragment"
         app:layout_constraintBottom_toTopOf="@id/compass_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,8 +20,8 @@
 
     <jp.ac.titech.itpro.sdl.camptool.CompassView
         android:id="@+id/compass_view"
-        android:layout_width="228dp"
-        android:layout_height="299dp"
+        android:layout_width="232dp"
+        android:layout_height="268dp"
         app:layout_constraintBottom_toTopOf="@id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
