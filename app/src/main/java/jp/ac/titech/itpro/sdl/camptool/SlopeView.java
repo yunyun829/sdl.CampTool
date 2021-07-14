@@ -11,14 +11,16 @@ import android.view.View;
 
 public class SlopeView extends View {
     private Paint paint = new Paint();
-    private Bitmap bmp;
-    private Rect imagesize;
-    private double degree  = 0;
+    private Bitmap bmp, bmp2;
+    private Rect imagesize, imagesize2;
+    private double degree = 0,length=0;
     public SlopeView(Context context) {
 
         super(context);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.slope);
         imagesize = new Rect(0,0,bmp.getWidth(),bmp.getHeight());
+        bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
+        imagesize2 = new Rect(0,0,bmp2.getWidth(),bmp2.getHeight());
         //drawsize = new
     }
 
@@ -27,12 +29,16 @@ public class SlopeView extends View {
         this(context, attrs, 0);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.slope);
         imagesize = new Rect(0,0,bmp.getWidth(),bmp.getHeight());
+        bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
+        imagesize2 = new Rect(0,0,bmp2.getWidth(),bmp2.getHeight());
     }
 
     public SlopeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.slope);
         imagesize = new Rect(0,0,bmp.getWidth(),bmp.getHeight());
+        bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.circle);
+        imagesize2 = new Rect(0,0,bmp2.getWidth(),bmp2.getHeight());
     }
 
     protected void onDraw(Canvas canvas){
@@ -45,12 +51,17 @@ public class SlopeView extends View {
         canvas.translate(cx,cy);
         canvas.rotate((float) degree);
         if(bmp!=null){
-            canvas.drawBitmap(bmp,imagesize,new Rect(-r,-r,r,r),paint);
+            if(length >4.24) {
+                canvas.drawBitmap(bmp, imagesize, new Rect(-r, -r, r, r), paint);
+            }else{
+                canvas.drawBitmap(bmp2, imagesize2, new Rect(-r, -r, r, r), paint);
+            }
         }
     }
 
-    public void setDegree(double d){
+    public void setDegree(double d,double l){
         degree = d;
+        length = l;
         invalidate();
     }
 

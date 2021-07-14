@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A3F875"
+    android:minWidth="0dp"
+    android:padding="0dp"
     tools:context=".MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,9 +30,10 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/BaseToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@color/dark_green"
             app:popupTheme="@style/Theme.CampTool.PopupOverlay" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -60,7 +63,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/back"
                 android:orientation="horizontal">
 
                 <Button
@@ -68,26 +72,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#ff00ddff"
+                    android:minWidth="0dp"
+                    android:padding="8dp"
                     android:text="compass"
-                    app:rippleColor="@color/white" />
+                    app:backgroundTint="@color/dark_green"
+                    app:iconPadding="4dp" />
 
                 <Button
                     android:id="@+id/toFragment2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#ff00ddff"
-                    android:text="slope" />
+                    android:text="slope"
+                    app:backgroundTint="@color/dark_green" />
 
                 <Button
                     android:id="@+id/toFragment3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#ff00ddff"
-                    android:backgroundTint="#ff00ddff"
-                    android:text="map" />
+                    android:text="map"
+                    app:backgroundTint="@color/dark_green" />
+
+                <Button
+                    android:id="@+id/toFragment4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="diary"
+                    app:backgroundTint="@color/dark_green" />
 
             </LinearLayout>
         </LinearLayout>

@@ -20,7 +20,7 @@ import static android.content.Context.SENSOR_SERVICE;
 public class FirstFragment extends Fragment implements SensorEventListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private SensorManager sensorManager;
-    private TextView textView;
+    //private TextView textView;
     private CompassView compassView;
     private Sensor ASensor,GSensor;
 
@@ -42,19 +42,19 @@ public class FirstFragment extends Fragment implements SensorEventListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sensorManager = (SensorManager)getActivity().getSystemService(SENSOR_SERVICE);
-        textView = (TextView)view.findViewById(R.id.textview_first);
+        //textView = (TextView)view.findViewById(R.id.textview_first);
         compassView = view.findViewById(R.id.compass_view);
         ASensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         GSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+        //view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        NavHostFragment.findNavController(FirstFragment.this)
+        //                .navigate(R.id.action_FirstFragment_to_SecondFragment);
+        //    }
+        //});
     }
 
     @Override
@@ -82,7 +82,7 @@ public class FirstFragment extends Fragment implements SensorEventListener {
         SensorManager.getOrientation(R,O);
 
         compassView.setDirection(O[0]);
-        textView.setText("direct:"+O[0]);
+        //textView.setText("direct:"+O[0]);
     }
 
     @Override

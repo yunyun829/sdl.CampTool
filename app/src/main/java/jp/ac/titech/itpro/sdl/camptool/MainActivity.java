@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button toFragment1 = findViewById(R.id.toFragment1);
         Button toFragment2 = findViewById(R.id.toFragment2);
         Button toFragment3 = findViewById(R.id.toFragment3);
+        Button toFrabment4 = findViewById(R.id.toFragment4);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         camera = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toFragment1.setOnClickListener(this);
         toFragment2.setOnClickListener(this);
         toFragment3.setOnClickListener(this);
+        toFrabment4.setOnClickListener(this);
 
 
     }
@@ -172,6 +174,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         tmpFragID = 1;
                         navController.navigate(R.id.action_thirdFragment_to_FirstFragment);
                         break;
+                    case 4:
+                        tmpFragID = 1;
+                        navController.navigate(R.id.action_fourthFragment_to_FirstFragment);
+                        break;
                 }
                 break;
             case R.id.toFragment2:
@@ -186,6 +192,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         tmpFragID = 2;
                         navController.navigate(R.id.action_thirdFragment_to_SecondFragment);
                         break;
+                    case 4:
+                        tmpFragID = 2;
+                        navController.navigate(R.id.action_fourthFragment_to_SecondFragment);
+                        break;
                 }
                 break;
             case R.id.toFragment3:
@@ -199,6 +209,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         navController.navigate(R.id.action_SecondFragment_to_thirdFragment);
                         break;
                     case 3:
+                        break;
+                    case 4:
+                        tmpFragID = 3;
+                        navController.navigate((R.id.action_fourthFragment_to_thirdFragment));
+                        break;
+                }
+                break;
+            case R.id.toFragment4:
+                switch (tmpFragID) {
+                    case 1:
+                        tmpFragID = 4;
+                        navController.navigate(R.id.action_FirstFragment_to_fourthFragment2);
+                        break;
+                    case 2:
+                        tmpFragID = 4;
+                        navController.navigate(R.id.action_SecondFragment_to_fourthFragment);
+                        break;
+                    case 3:
+                        tmpFragID = 4;
+                        navController.navigate(R.id.action_thirdFragment_to_fourthFragment);
+                        break;
+                    case 4:
                         break;
                 }
                 break;

@@ -21,7 +21,7 @@ public class CompassView extends View {
     public CompassView(Context context) {
 
         super(context);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.compass);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.compass_4);
         imagesize = new Rect(0,0,bmp.getWidth(),bmp.getHeight());
         //drawsize = new
     }
@@ -29,12 +29,12 @@ public class CompassView extends View {
     public CompassView(Context context, AttributeSet attrs) {
 
         this(context, attrs, 0);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.compass);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.compass_4);
     }
 
     public CompassView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.compass);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.compass_4);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CompassView extends View {
     }
 
     public void setDirection(double theta){
-        direction = -theta ;
+        direction = theta ;
         degree = Math.toDegrees(direction);
         invalidate();
     }

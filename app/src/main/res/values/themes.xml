@@ -22,4 +22,15 @@
     <style name="Theme.CampTool.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.CampTool.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="BaseToolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:theme">@style/ToolbarTheme</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/toolbar_text</item>
+        <item name="android:textColorSecondary">@color/toolbar_text</item>
+    </style>
+
+    <color name="toolbar_text">#FFFFFF</color>
 </resources>

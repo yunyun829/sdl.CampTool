@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_thirdFragment"
             app:destination="@id/thirdFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_fourthFragment2"
+            app:destination="@id/fourthFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -30,6 +33,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_thirdFragment"
             app:destination="@id/thirdFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_fourthFragment"
+            app:destination="@id/fourthFragment" />
     </fragment>
     <fragment
         android:id="@+id/thirdFragment"
@@ -42,5 +48,47 @@
         <action
             android:id="@+id/action_thirdFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_thirdFragment_to_fourthFragment"
+            app:destination="@id/fourthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fourthFragment"
+        android:name="jp.ac.titech.itpro.sdl.camptool.FourthFragment"
+        android:label="FourthFragment" >
+        <action
+            android:id="@+id/action_fourthFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_fourthFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_fourthFragment_to_thirdFragment"
+            app:destination="@id/thirdFragment" />
+        <action
+            android:id="@+id/action_fourthFragment_to_editDiary"
+            app:destination="@id/editDiary" />
+        <action
+            android:id="@+id/action_fourthFragment_to_previewDiary"
+            app:destination="@id/previewDiary" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDiary"
+        android:name="jp.ac.titech.itpro.sdl.camptool.EditDiary"
+        android:label="EditDiary" >
+        <action
+            android:id="@+id/action_editDiary_to_fourthFragment"
+            app:destination="@id/fourthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewDiary"
+        android:name="jp.ac.titech.itpro.sdl.camptool.PreviewDiary"
+        android:label="PreviewDiary" >
+        <argument
+            android:name="de"
+            app:argType="jp.ac.titech.itpro.sdl.camptool.DiaryEntry" />
+        <action
+            android:id="@+id/action_previewDiary_to_fourthFragment"
+            app:destination="@id/fourthFragment" />
     </fragment>
 </navigation>

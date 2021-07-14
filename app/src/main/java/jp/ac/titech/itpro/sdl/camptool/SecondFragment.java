@@ -23,7 +23,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SecondFragment extends Fragment implements SensorEventListener {
     private SensorManager sensorManager;
-    private TextView textView;
+    //private TextView textView;
     private SlopeView slopeView;
     private Sensor ASensor,GSensor;
 
@@ -46,16 +46,16 @@ public class SecondFragment extends Fragment implements SensorEventListener {
         sensorManager = (SensorManager)getActivity().getSystemService(SENSOR_SERVICE);
         ASensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         GSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        textView = getView().findViewById(R.id.textview_second);
+        //textView = getView().findViewById(R.id.textview_second);
         slopeView = getView().findViewById(R.id.slope_view);
 
-        view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_thirdFragment);
-            }
-        });
+        //view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        NavHostFragment.findNavController(SecondFragment.this)
+        //                .navigate(R.id.action_SecondFragment_to_thirdFragment);
+        //    }
+        //});
     }
     @Override
     public void onResume() {
@@ -76,19 +76,23 @@ public class SecondFragment extends Fragment implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case Sensor.TYPE_MAGNETIC_FIELD:
-                magnetic = event.values.clone();
+                magnetic = calcWaitedAve(event.values.clone(),magnetic);
                 break;
             case Sensor.TYPE_ACCELEROMETER:
-                gravity = event.values.clone();
+                gravity = calcWaitedAve(event.values.clone(),gravity);
                 break;
         }
         if (magnetic != null && gravity != null){
             sensorManager.getRotationMatrix(rotation,null,gravity,magnetic);
             sensorManager.getOrientation(rotation,attitude);
 
-            double theta = Math.toDegrees(Math.atan2(Math.toDegrees(attitude[2]),Math.toDegrees(attitude[1])));
-            textView.setText("theta:"+theta);
-            slopeView.setDegree(theta);
+            double x = Math.toDegrees(attitude[1]);
+            double y = Math.toDegrees(attitude[2]);
+            double theta = Math.toDegrees(Math.atan2(y,x));
+            double length = Math.sqrt(x*x+y*y);
+            //textView.setText("theta:"+theta);
+            slopeView.setDegree(theta,length);
+
 
         }
 
@@ -97,5 +101,14 @@ public class SecondFragment extends Fragment implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    private float[] calcWaitedAve(float[] cur,float[] prev){
+        float wait = 0.85f;
+
+        for (int i = 1; i < prev.length; i++){
+            cur[i] = prev[i]*wait+cur[i]*(1-wait);
+        }
+        return cur;
     }
 }
