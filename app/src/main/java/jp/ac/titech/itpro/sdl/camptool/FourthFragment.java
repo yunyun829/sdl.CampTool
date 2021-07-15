@@ -18,6 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +40,10 @@ public class FourthFragment extends Fragment {
     private RecyclerView recyclerView;
     private String[] txt = {"aaa","bbb","cccc","dd"};
     private List<DiaryEntry> entries = new ArrayList<>() ;
+    private File file;
+    private String filename = "diary.json";
+    public static final String NEW = "new";
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -44,8 +61,14 @@ public class FourthFragment extends Fragment {
         //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,txt);
         //listView.setAdapter(arrayAdapter);
         recyclerView = getView().findViewById(R.id.recycle_view);
-        entries = DiaryEntry.createListFromString(txt);
+        //entries = DiaryEntry.createListFromString(txt);
+        entries = createListFromJson();
+        DiaryEntry de = (DiaryEntry) getArguments().getSerializable(NEW);
+        if(de != null){
+            entries.add(de);
+        }
         MyViewAdapter adapter = new MyViewAdapter(entries);
+        createJsonFromList(entries);
         adapter.setEvent(new MyViewAdapter.onClickEvent() {
                              @Override
                              public void onClickAction(int position) {
@@ -72,6 +95,70 @@ public class FourthFragment extends Fragment {
                 NavHostFragment.findNavController(FourthFragment.this).navigate(R.id.action_fourthFragment_to_editDiary);
             }
         });
+    }
+
+    public List<DiaryEntry> createListFromJson() {
+        List<DiaryEntry> list = new ArrayList<>();
+        BufferedReader reader;
+
+        String data = "";
+        try {
+            file = new File(getContext().getFilesDir(), filename);
+            reader = new BufferedReader(new FileReader(file));
+            String buff = reader.readLine();
+
+            while (buff != null){
+                data += buff;
+                buff = reader.readLine();
+            }
+            reader.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            JSONArray jArray = jsonObject.getJSONArray("diary");
+
+            for (int i = 0; i < jArray.length(); i++){
+                JSONObject entry = jArray.getJSONObject(i);
+                DiaryEntry de = new DiaryEntry(entry.getString("title"),entry.getString("time"),entry.getString("contents"));
+                list.add(de);
+            }
+        }catch (JSONException e){
+            e.getStackTrace();
+        }
+
+        return list;
+    }
+
+    public void createJsonFromList(List<DiaryEntry> list){
+        String filedata = "";
+        try {
+            JSONObject json ;
+            JSONArray jArray =new JSONArray();
+            for (int i = 0; i < list.size(); i++){
+                json = new JSONObject();
+                json.put("title",list.get(i).getTitle());
+                json.put("time",list.get(i).getTime());
+                json.put("contents",list.get(i).getContents());
+                jArray.put(json);
+            }
+            JSONObject result = new JSONObject().put("diary",jArray);
+            filedata = result.toString(2);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        //Log.d("Tag",filedata);
+        try{
+            file = new File(getContext().getFilesDir(), filename);
+            FileWriter writer = new FileWriter(file);
+            writer.write(filedata);
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

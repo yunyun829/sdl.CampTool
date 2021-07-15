@@ -12,9 +12,12 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:clickable="true"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
         android:scaleX="2.0"
         android:scaleY="2.0"
-        android:text="a" />
+        android:text="a"
+        android:textColor="#FFFFFFFF" />
 
     <TextView
         android:id="@+id/time_view"

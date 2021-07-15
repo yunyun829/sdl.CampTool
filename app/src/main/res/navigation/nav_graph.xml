@@ -71,6 +71,11 @@
         <action
             android:id="@+id/action_fourthFragment_to_previewDiary"
             app:destination="@id/previewDiary" />
+        <argument
+            android:name="newDE"
+            app:argType="jp.ac.titech.itpro.sdl.camptool.DiaryEntry"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/editDiary"
